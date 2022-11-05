@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->float('avg_price', 5, 2);
             $table->float('avg_ratings');
-            $table->double('gps_latitule');
+            $table->double('gps_latitude');
             $table->double('gps_longitude');
         });
         Schema::create('accomodations', function (Blueprint $table) {
@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->float('avg_price', 5, 2);
             $table->float('avg_ratings');
-            $table->double('gps_latitule');
+            $table->double('gps_latitude');
             $table->double('gps_longitude');
         });
         Schema::create('activities', function (Blueprint $table) {
@@ -42,9 +42,9 @@ return new class extends Migration
             $table->foreign('location_id')->references('id')->on('locations');
             $table->float('avg_price', 5, 2);
             $table->float('avg_ratings');
-            $table->double('gps_latitule');
+            $table->double('gps_latitude');
             $table->double('gps_longitude');
-            $table->date("avg_time");
+            $table->bigInteger("avg_time_sec")->nullable();
         });
         Schema::create('travels', function (Blueprint $table) {
             $table->id();
@@ -67,7 +67,7 @@ return new class extends Migration
             $table->unsignedBigInteger('travel_id');
             $table->foreign('travel_id')->references('id')->on('travels');
             $table->float("progress");
-            $table->date("avg_time");
+            $table->bigInteger("avg_time_minutes");
         });
         Schema::create('routes_activities', function (Blueprint $table) {
             $table->unsignedBigInteger('route_id');

@@ -9,6 +9,8 @@ use App\Http\Resources\City\CityResource;
 use App\Http\Resources\City\CityCollection;
 use App\Http\Requests\City\CreateCityRequest;
 use App\Http\Resources\Eatery\EateryCollection;
+use App\Http\Resources\Activity\ActivityCollection;
+use App\Http\Resources\Accomodation\AccomodationCollection;
 
 class CityController extends Controller
 {
@@ -29,6 +31,24 @@ class CityController extends Controller
                 ->where('city_id','=',$city->id)
                 ->get();
         return new EateryCollection($eateriesByCity);
+    }
+
+    public function accomodations(City $city)
+    {
+        $accomodationsByCity = DB::table('accomodations')
+                ->join('locations', 'accomodations.location_id', '=', 'locations.id')
+                ->where('city_id','=',$city->id)
+                ->get();
+        return new AccomodationCollection($accomodationsByCity);
+    }
+
+    public function activities(City $city)
+    {
+        $activitiesByCity = DB::table('activities')
+                ->join('locations', 'activities.location_id', '=', 'locations.id')
+                ->where('city_id','=',$city->id)
+                ->get();
+        return new ActivityCollection($activitiesByCity);
     }
 
     /**
