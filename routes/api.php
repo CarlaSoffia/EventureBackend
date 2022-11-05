@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AccomodationController;
+use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
@@ -38,11 +40,23 @@ Route::get('/cities/{city}', [CityController::class, 'show']);
 Route::post('/cities', [CityController::class, 'store']);
 Route::delete('/cities/{city}', [CityController::class, 'destroy']);
 Route::get('/cities/{city}/eateries', [CityController::class, 'eateries']);
+Route::get('/cities/{city}/activities', [CityController::class, 'activities']);
+Route::get('/cities/{city}/accomodations', [CityController::class, 'accomodations']);
 
 Route::get('/eateries', [EateryController::class, 'index']);
 Route::get('/eateries/{eatery}', [EateryController::class, 'show']);
 Route::post('/eateries', [EateryController::class, 'store']);
 Route::delete('/eateries/{eatery}', [EateryController::class, 'destroy']);
+
+Route::get('/accomodations', [AccomodationController::class, 'index']);
+Route::get('/accomodations/{accomodation}', [AccomodationController::class, 'show']);
+Route::post('/accomodations', [AccomodationController::class, 'store']);
+Route::delete('/accomodations/{accomodation}', [AccomodationController::class, 'destroy']);
+
+Route::get('/activities', [ActivityController::class, 'index']);
+Route::get('/activities/{activity}', [ActivityController::class, 'show']);
+Route::post('/activities', [ActivityController::class, 'store']);
+Route::delete('/activities/{activity}', [ActivityController::class, 'destroy']);
 
 #Route::group([
 #    'middleware' => 'api',
