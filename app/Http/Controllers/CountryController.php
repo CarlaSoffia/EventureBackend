@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Country;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Category\CreateCategoryRequest;
-use App\Http\Resources\Category\CategoryCollection;
-use App\Http\Resources\Category\CategoryResource;
+use App\Http\Requests\Country\CreateCountryRequest;
+use App\Http\Resources\Country\CountryCollection;
+use App\Http\Resources\Country\CountryResource;
 
-class CategoryController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return new CategoryCollection(Category::all());
+        return new CountryCollection(Country::all());
     }
 
     /**
@@ -33,22 +33,22 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
+     * @param  \App\Http\Requests\StoreCountryRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCategoryRequest $request)
+    public function store(CreateCountryRequest $request)
     {
-        $category = new Category();
+        $country = new Country();
         $validated_data = $request->validated();
         try {
             DB::beginTransaction();
 
-            $category->name = strtolower($validated_data["name"]);
+            $country->name = strtolower($validated_data["name"]);
 
-            $category->save();
+            $country->save();
             DB::commit();
 
-            return new CategoryResource($category);
+            return new CountryResource($country);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(array(
@@ -61,21 +61,21 @@ class CategoryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function show(Category $category)
+    public function show(Country $country)
     {
-        return new CategoryResource($category);
+        return new CountryResource($country);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit(Country $country)
     {
         abort(404);
     }
@@ -83,24 +83,24 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Http\Requests\UpdateCountryRequest  $request
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
     public function update()
-    {//CreateCategoryRequest $request, Category $category
+    {//CreateCountryRequest $request, Country $country
         abort(404);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Country  $country
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Country $country)
     {
-        $category->delete();
-        return new CategoryResource($category);
+        $country->delete();
+        return new CountryResource($country);
     }
 }
