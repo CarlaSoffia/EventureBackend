@@ -35,7 +35,7 @@ class CreateCityRequest extends FormRequest
             'unique:App\Models\City,name' => 'City already exists',
             'country_id.required' => "Country is required",
             'country_id.integer' => "Country must be a string",
-            'country_id.exists' => "Country doesn't exists",
+            'country_id.exists' => "Country doesn't exist",
         ];
     }
 }

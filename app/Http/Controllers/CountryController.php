@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Country\CreateCountryRequest;
-use App\Http\Resources\Country\CountryCollection;
 use App\Http\Resources\Country\CountryResource;
-use App\Models\City;
+use App\Http\Resources\Country\CountryCollection;
+use App\Http\Requests\Country\CreateCountryRequest;
 
 class CountryController extends Controller
 {
@@ -21,7 +21,7 @@ class CountryController extends Controller
         return new CountryCollection(Country::all());
     }
 
-    public function byCity(Country $country)
+    public function cities(Country $country)
     {
         return new CountryCollection(City::all()->where('country_id','=',$country->id));
     }
@@ -50,7 +50,6 @@ class CountryController extends Controller
             DB::beginTransaction();
 
             $country->name = strtolower($validated_data["name"]);
-
             $country->save();
             DB::commit();
 

@@ -4,11 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\City;
 use App\Models\Country;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Resources\City\CityResource;
 use App\Http\Resources\City\CityCollection;
 use App\Http\Requests\City\CreateCityRequest;
+use App\Http\Resources\Eatery\EateryCollection;
 
 class CityController extends Controller
 {
@@ -20,6 +20,15 @@ class CityController extends Controller
     public function index()
     {
         return new CityCollection(City::all());
+    }
+
+    public function eateries(City $city)
+    {
+        $eateriesByCity = DB::table('eateries')
+                ->join('locations', 'eateries.location_id', '=', 'locations.id')
+                ->where('city_id','=',$city->id)
+                ->get();
+        return new EateryCollection($eateriesByCity);
     }
 
     /**
@@ -42,6 +51,7 @@ class CityController extends Controller
     {
         $city = new City();
         $validated_data = $request->validated();
+
         try {
             DB::beginTransaction();
 
