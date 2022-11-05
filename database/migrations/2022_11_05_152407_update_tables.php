@@ -26,7 +26,7 @@ return new class extends Migration
             $table->dropColumn('gps_latitule');
         });
         Schema::table('locations', function (Blueprint $table) {
-            $table->double('gps_latitule')->nullable();
+            $table->double('gps_latitude')->nullable();
             $table->double('gps_longitude')->nullable();
         });
     }

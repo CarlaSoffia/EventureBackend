@@ -5,16 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Location extends Model
 {
     use HasFactory;
-
-     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'cities';
 
     /**
      * Indicates if the model should be timestamped.
@@ -30,13 +23,10 @@ class City extends Model
      * @var array
      */
     protected $fillable = [
-        'name','country_id'
+        'name','city_id','gps_latitude','gps_longitude'
     ];
 
-    public function country(){
-        return $this->belongsTo(Country::class);
-    }
-    public function locations(){
-        return $this->hasMany(Location::class);
+    public function city(){
+        return $this->belongsTo(City::class);
     }
 }
