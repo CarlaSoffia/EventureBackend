@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Country extends Model
+class City extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Country extends Model
      *
      * @var string
      */
-    protected $table = 'countries';
+    protected $table = 'cities';
 
     /**
      * Indicates if the model should be timestamped.
@@ -30,10 +30,10 @@ class Country extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name','country_id'
     ];
 
-    public function cities(){
-        return $this->hasMany(City::class);
+    public function country(){
+        return $this->belongsTo(Country::class);
     }
 }

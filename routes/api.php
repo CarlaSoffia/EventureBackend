@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CountryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,6 +30,13 @@ Route::get('/countries', [CountryController::class, 'index']);
 Route::get('/countries/{country}', [CountryController::class, 'show']);
 Route::post('/countries', [CountryController::class, 'store']);
 Route::delete('/countries/{country}', [CountryController::class, 'destroy']);
+Route::get('/countries/{country}/cities', [CountryController::class, 'byCity']);
+
+Route::get('/cities', [CityController::class, 'index']);
+Route::get('/cities/{city}', [CityController::class, 'show']);
+Route::post('/cities', [CityController::class, 'store']);
+Route::delete('/cities/{city}', [CityController::class, 'destroy']);
+
 
 #Route::group([
 #    'middleware' => 'api',

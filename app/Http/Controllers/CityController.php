@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Country;
-use Illuminate\Support\Facades\DB;
-use App\Http\Requests\Country\CreateCountryRequest;
-use App\Http\Resources\Country\CountryCollection;
-use App\Http\Resources\Country\CountryResource;
 use App\Models\City;
+use App\Models\Country;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Resources\City\CityResource;
+use App\Http\Resources\City\CityCollection;
+use App\Http\Requests\City\CreateCityRequest;
 
-class CountryController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,12 +19,7 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return new CountryCollection(Country::all());
-    }
-
-    public function byCity(Country $country)
-    {
-        return new CountryCollection(City::all()->where('country_id','=',$country->id));
+        return new CityCollection(City::all());
     }
 
     /**
@@ -39,22 +35,22 @@ class CountryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCountryRequest  $request
+     * @param  \App\Http\Requests\StoreCityRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateCountryRequest $request)
+    public function store(CreateCityRequest $request)
     {
-        $country = new Country();
+        $city = new City();
         $validated_data = $request->validated();
         try {
             DB::beginTransaction();
 
-            $country->name = strtolower($validated_data["name"]);
-
-            $country->save();
+            $city->name = strtolower($validated_data["name"]);
+            $city->country()->associate(Country::find($validated_data["country_id"]));
+            $city->save();
             DB::commit();
 
-            return new CountryResource($country);
+            return new CityResource($city);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(array(
@@ -67,21 +63,21 @@ class CountryController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function show(Country $country)
+    public function show(City $city)
     {
-        return new CountryResource($country);
+        return new CityResource($city);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function edit(Country $country)
+    public function edit(City $city)
     {
         abort(404);
     }
@@ -89,24 +85,24 @@ class CountryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCountryRequest  $request
-     * @param  \App\Models\Country  $country
+     * @param  \App\Http\Requests\UpdateCityRequest  $request
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
     public function update()
-    {//CreateCountryRequest $request, Country $country
+    {//CreateCityRequest $request, City $city
         abort(404);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\City  $city
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(City $city)
     {
-        $country->delete();
-        return new CountryResource($country);
+        $city->delete();
+        return new CityResource($city);
     }
 }

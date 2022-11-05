@@ -28,7 +28,7 @@ class CreateCountryRequest extends FormRequest
         return [
             'name.required' => "Country's name is required",
             'name.string' => "Country's name must be a string",
-            'unique:App\Models\Country,name' => 'The Country has already been taken',
+            'unique:App\Models\Country,name' => 'Country already exists',
         ];
     }
 }

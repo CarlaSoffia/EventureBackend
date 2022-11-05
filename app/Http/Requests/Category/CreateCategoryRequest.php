@@ -28,7 +28,7 @@ class CreateCategoryRequest extends FormRequest
         return [
             'name.required' => "Category's name is required",
             'name.string' => "Category's name must be a string",
-            'unique:App\Models\Category,name' => 'The category has already been taken',
+            'unique:App\Models\Category,name' => 'Category already exists',
         ];
     }
 }
