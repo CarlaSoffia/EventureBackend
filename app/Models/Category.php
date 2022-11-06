@@ -32,4 +32,7 @@ class Category extends Model
     protected $fillable = [
         'name'
     ];
+    public function routes(){
+        return $this->belongsToMany(Route::class, 'routes_categories');
+    }
 }

@@ -36,4 +36,7 @@ class Eatery extends Model
    public function location(){
        return $this->hasOne(Location::class);
    }
+   public function travels(){
+    return $this->belongsToMany(Travel::class, 'travels_eateries');
+}
 }

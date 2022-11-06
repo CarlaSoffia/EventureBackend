@@ -31,4 +31,7 @@ class Route extends Model
     public function categories(){
         return $this->belongsToMany(Category::class, 'routes_categories');
     }
+    public function activities(){
+        return $this->belongsToMany(Activity::class, 'routes_activities');
+    }
 }

@@ -38,4 +38,7 @@ class Travel extends Model
     public function accomodation(){
         return $this->belongsTo(Accomodation::class);
     }
+    public function routes(){
+        return $this->hasMany(Route::class);
+    }
 }

@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Resources\Route\RouteResource;
 use App\Http\Resources\Route\RouteCollection;
 use App\Http\Requests\Route\CreateRouteRequest;
+use App\Http\Resources\Activity\ActivityCollection;
+use App\Models\Activity;
 
 class RouteController extends Controller
 {
@@ -27,7 +29,7 @@ class RouteController extends Controller
         $activities = DB::table('routes_activities')
         ->where('route_id','=',$route->id)
         ->get();
-        return new RouteCollection($activities);
+        return new ActivityCollection($activities);
     }
 
     /**
@@ -95,19 +97,40 @@ class RouteController extends Controller
     {
         abort(404);
     }
+    public function updateStatus(Route $route, Activity $activity){
 
-    public function updateProgress(Route $route)
-    {
-        $activities = DB::table('routes_activities')
-        ->where('route_id','=',$route->id)
-        ->count();
-        $completed = DB::table('routes_activities')
-        ->where('route_id','=',$route->id)
-        ->where('status','=','Finished')
-        ->count();
-        $route->progress = (100 * $completed) / $activities;
-        $route->save();
-        return new RouteResource($route);
+        try {
+
+            DB::beginTransaction();
+            if($route->status=='Not Started'){
+                $route->status = 'On Going';
+            }
+            if($route->status=='On Going'){
+                $route->status = 'Finished';
+            }
+            if($route->status=='Finished'){
+                $route->status = 'Finished';
+            }
+
+            $activities = DB::table('routes_activities')
+            ->where('route_id','=',$route->id)
+            ->count();
+            $completed = DB::table('routes_activities')
+            ->where('route_id','=',$route->id)
+            ->where('status','=','Finished')
+            ->count();
+            $route->progress = (100 * $completed) / $activities;
+            $route->save();
+            DB::commit();
+            return new RouteResource($route);
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(array(
+                'code'      =>  400,
+                'message'   =>  $th->getMessage()
+            ), 400);
+        }
     }
 
     /**

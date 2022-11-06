@@ -63,8 +63,9 @@ Route::delete('/activities/{activity}', [ActivityController::class, 'destroy']);
 Route::get('/routes', [RouteController::class, 'index']);
 Route::get('/routes/{route}', [RouteController::class, 'show']);
 Route::delete('/routes/{route}', [RouteController::class, 'destroy']);
-Route::put('/routes/{route}/progress', [RouteController::class, 'updateProgress']);
 Route::get('/routes/{route}/activities', [RouteController::class, 'activities']);
+Route::put('/routes/{route}/activities/{activity}/status', [RouteController::class, 'updateStatus']);
+
 
 Route::get('/travels', [TravelController::class, 'index']);
 Route::get('/travels/{travel}', [TravelController::class, 'show']);

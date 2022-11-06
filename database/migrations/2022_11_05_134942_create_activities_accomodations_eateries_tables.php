@@ -75,7 +75,7 @@ return new class extends Migration
             $table->foreign('route_id')->references('id')->on('routes');
             $table->unsignedBigInteger('activity_id');
             $table->foreign('activity_id')->references('id')->on('activities');
-            $table->enum("status", ["Started","On Going","Finished"]);
+            $table->enum("status", ["Not Started","On Going","Finished"]);
         });
         Schema::create('routes_categories', function (Blueprint $table) {
             $table->unsignedBigInteger('route_id');
