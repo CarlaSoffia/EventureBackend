@@ -44,17 +44,18 @@ return new class extends Migration
             $table->float('avg_ratings');
             $table->double('gps_latitude');
             $table->double('gps_longitude');
-            $table->bigInteger("avg_time_sec")->nullable();
+            $table->bigInteger("avg_time_minutes")->nullable();
         });
         Schema::create('travels', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('days');
-            $table->unsignedBigInteger('location_id');
-            $table->foreign('location_id')->references('id')->on('locations');
             $table->unsignedBigInteger('accomodation_id');
             $table->foreign('accomodation_id')->references('id')->on('accomodations');
+            $table->float("avg_distance");
+            $table->unsignedBigInteger('city_id');
+            $table->foreign('city_id')->references('id')->on('cities');
         });
         Schema::create('travels_eateries', function (Blueprint $table) {
             $table->unsignedBigInteger('travel_id');

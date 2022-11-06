@@ -29,4 +29,7 @@ class Accomodation extends Model
    public function location(){
        return $this->hasOne(Location::class);
    }
+   public function travels(){
+       return $this->hasMany(Travel::class);
+   }
 }

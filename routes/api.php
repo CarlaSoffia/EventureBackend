@@ -1,13 +1,15 @@
 <?php
 
-use App\Http\Controllers\AccomodationController;
-use App\Http\Controllers\ActivityController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\CityController;
-use App\Http\Controllers\CountryController;
-use App\Http\Controllers\EateryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\RouteController;
+use App\Http\Controllers\EateryController;
+use App\Http\Controllers\TravelController;
+use App\Http\Controllers\CountryController;
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\AccomodationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +60,15 @@ Route::get('/activities/{activity}', [ActivityController::class, 'show']);
 Route::post('/activities', [ActivityController::class, 'store']);
 Route::delete('/activities/{activity}', [ActivityController::class, 'destroy']);
 
+Route::get('/routes', [RouteController::class, 'index']);
+Route::get('/routes/{route}', [RouteController::class, 'show']);
+Route::delete('/routes/{route}', [RouteController::class, 'destroy']);
+Route::put('/routes/{route}/progress', [RouteController::class, 'updateProgress']);
+
+Route::get('/travels', [TravelController::class, 'index']);
+Route::get('/travels/{travel}', [TravelController::class, 'show']);
+Route::post('/travels', [TravelController::class, 'store']);
+Route::delete('/travels/{travel}', [TravelController::class, 'destroy']);
 #Route::group([
 #    'middleware' => 'api',
 #    'prefix' => 'auth'

@@ -56,7 +56,7 @@ class ActivityController extends Controller
             $activity->avg_ratings = $validated_data["avg_ratings"];
             $activity->location_id = $location->id;
             $activity->category_id = $validated_data["category_id"];
-            $activity->avg_time_sec = $validated_data["avg_time_sec"];
+            $activity->avg_time_minutes = $validated_data["avg_time_minutes"];
             $activity->save();
             DB::commit();
 

@@ -30,10 +30,13 @@ class Activity extends Model
     * @var array
     */
    protected $fillable = [
-       'designation','category_id','location_id','avg_price','avg_ratings','avg_time_sec'
+       'designation','category_id','location_id','avg_price','avg_ratings','avg_time_minutes'
    ];
 
    public function location(){
        return $this->hasOne(Location::class);
+   }
+   public function routes(){
+       return $this->belongsToMany(Route::class, 'routes_activities');
    }
 }

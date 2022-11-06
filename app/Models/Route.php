@@ -5,18 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class City extends Model
+class Route extends Model
 {
     use HasFactory;
-
      /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected $table = 'cities';
-
-    /**
      * Indicates if the model should be timestamped.
      *
      * @var bool
@@ -30,17 +22,13 @@ class City extends Model
      * @var array
      */
     protected $fillable = [
-        'name','country_id'
+        'travel_id','progress','avg_time_minutes'
     ];
 
-    public function country(){
-        return $this->belongsTo(Country::class);
+    public function travel(){
+        return $this->belongsTo(Travel::class);
     }
-    public function locations(){
-        return $this->hasMany(Location::class);
+    public function categories(){
+        return $this->belongsToMany(Category::class, 'routes_categories');
     }
-    public function travels(){
-        return $this->hasMany(Travel::class);
-    }
-
 }

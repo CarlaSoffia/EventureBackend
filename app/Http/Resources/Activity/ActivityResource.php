@@ -23,7 +23,7 @@ class ActivityResource extends JsonResource
             'designation' => $this->designation,
             'avg_price' => $this->avg_price,
             'avg_ratings' => $this->avg_ratings,
-            'avg_time_sec' => $this->avg_time_sec,
+            'avg_time_minutes' => $this->avg_time_minutes,
             'category' => $category->name,
             'gps_latitude' => $location->gps_latitude,
             'gps_longitude' => $location->gps_longitude
