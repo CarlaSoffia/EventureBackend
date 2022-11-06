@@ -23,6 +23,13 @@ class TravelController extends Controller
         return new TravelCollection(Travel::all());
     }
 
+    public function eateries(Travel $travel)
+    {
+        $eateries = DB::table('travels_eateries')
+        ->where('travel_id','=',$travel->id)
+        ->get();
+        return new TravelCollection($eateries);
+    }
     /**
      * Show the form for creating a new resource.
      *

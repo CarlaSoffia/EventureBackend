@@ -21,6 +21,15 @@ class RouteController extends Controller
         return new RouteCollection(Route::all());
     }
 
+
+    public function activities(Route $route)
+    {
+        $activities = DB::table('routes_activities')
+        ->where('route_id','=',$route->id)
+        ->get();
+        return new RouteCollection($activities);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

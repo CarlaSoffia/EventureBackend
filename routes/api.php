@@ -64,11 +64,14 @@ Route::get('/routes', [RouteController::class, 'index']);
 Route::get('/routes/{route}', [RouteController::class, 'show']);
 Route::delete('/routes/{route}', [RouteController::class, 'destroy']);
 Route::put('/routes/{route}/progress', [RouteController::class, 'updateProgress']);
+Route::get('/routes/{route}/activities', [RouteController::class, 'activities']);
 
 Route::get('/travels', [TravelController::class, 'index']);
 Route::get('/travels/{travel}', [TravelController::class, 'show']);
+Route::get('/travels/{travel}/eateries', [TravelController::class, 'eateries']);
 Route::post('/travels', [TravelController::class, 'store']);
 Route::delete('/travels/{travel}', [TravelController::class, 'destroy']);
+
 #Route::group([
 #    'middleware' => 'api',
 #    'prefix' => 'auth'
